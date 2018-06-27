@@ -34,7 +34,7 @@ CHN_DATA= CHN_DATA.na.drop(subset=["_c3"])
 CHN_DATA.count()
 1237528
 
-                        #2. Extracting datetime from "_c2"
+                        2. Extracting datetime from "_c2"
 
 cef = substring_index(CHN_DATA._c2, ' ', 1)
 CHN_DATA = CHN_DATA.withColumn("Day", cef)
@@ -66,19 +66,11 @@ cef = substring_index(CHN_DATA.Date, ' ', -1)
 CHN_DATA = CHN_DATA.withColumn("Date", cef)
 
 CHN_DATA.show(5)
-+--------------------+--------------------+--------------------+----+--------------------+----+-------------+--------------------+--------------------+----+--------------------+---+----+--------+-----+----+
-|                 _c0|                 _c1|                 _c2| _c3|                 _c4| _c5|          _c6|                 _c7|                 _c8| _c9|                _c10|Day|Year|    Time|Month|Date|
-+--------------------+--------------------+--------------------+----+--------------------+----+-------------+--------------------+--------------------+----+--------------------+---+----+--------+-----+----+
-|%NICWIN-4-Securit...|rn=879050036 cid=...|Tue Mar 06 00:00:...|5156|Microsoft-Windows...|null|Audit Success|BLRSSPCITIDC.CITI...|Filtering Platfor...|null|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|
-|%NICWIN-4-Securit...|rn=879050037 cid=...|Tue Mar 06 00:00:...|5156|Microsoft-Windows...|null|Audit Success|BLRSSPCITIDC.CITI...|Filtering Platfor...|null|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|
-|%NICWIN-4-Securit...|rn=879050038 cid=...|Tue Mar 06 00:00:...|5158|Microsoft-Windows...|null|Audit Success|BLRSSPCITIDC.CITI...|Filtering Platfor...|null|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|
-|%NICWIN-4-Securit...|rn=879050039 cid=...|Tue Mar 06 00:00:...|5156|Microsoft-Windows...|null|Audit Success|BLRSSPCITIDC.CITI...|Filtering Platfor...|null|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|
-|%NICWIN-4-Securit...|rn=879050040 cid=...|Tue Mar 06 00:00:...|5158|Microsoft-Windows...|null|Audit Success|BLRSSPCITIDC.CITI...|Filtering Platfor...|null|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|
-+--------------------+--------------------+--------------------+----+--------------------+----+-------------+--------------------+--------------------+----+--------------------+---+----+--------+-----+----+
-only showing top 5 rows
+
 
 CHN_DATA = CHN_DATA.drop("_c5", "_c7", "_c9", "_c2")
 CHN_DATA = CHN_DATA.drop("_c5", "_c7", "_c9", "_c2")
+                                        
                                         3. Extracting EventRecordID from "_c1"
 
 ss = locate('rn=', CHN_DATA._c1, 1)
@@ -101,15 +93,10 @@ CHN_DATA = CHN_DATA.withColumn('EventRecordID', CHN_DATA['_c1'].substr(CHN_DATA.
 
 CHN_DATA.show(5)
 +--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+
-|                 _c0|                 _c1| _c3|                 _c4|          _c6|                 _c8|                _c10|Day|Year|    Time|Month|Date| ss| ee|ssn|Diff|EventRecordID|
-+--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+
-|%NICWIN-4-Securit...|rn=879050036 cid=...|5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|  1| 14|  4|  10|   879050036 |
-|%NICWIN-4-Securit...|rn=879050037 cid=...|5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|  1| 14|  4|  10|   879050037 |
-|%NICWIN-4-Securit...|rn=879050038 cid=...|5158|Microsoft-Windows...|Audit Success|Filtering Platfor...|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|  1| 14|  4|  10|   879050038 |
-|%NICWIN-4-Securit...|rn=879050039 cid=...|5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|  1| 14|  4|  10|   879050039 |
-|%NICWIN-4-Securit...|rn=879050040 cid=...|5158|Microsoft-Windows...|Audit Success|Filtering Platfor...|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|  1| 14|  4|  10|   879050040 |
+
 +--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+
 only showing top 5 rows
+                                                  
                                                   4. Extracting ThreadID from "_c1"
 
 ThreadID
