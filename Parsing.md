@@ -100,7 +100,7 @@ CHN_DATA= CHN_DATA.na.drop(subset=["_c3"])
 
 CHN_DATA.count()
 1237528
-2. Extracting datetime from "_c2"
+                                                  2. Extracting datetime from "_c2"
 
 cef = substring_index(CHN_DATA._c2, ' ', 1)
 CHN_DATA = CHN_DATA.withColumn("Day", cef)
@@ -145,7 +145,7 @@ only showing top 5 rows
 
 CHN_DATA = CHN_DATA.drop("_c5", "_c7", "_c9", "_c2")
 CHN_DATA = CHN_DATA.drop("_c5", "_c7", "_c9", "_c2")
-3. Extracting EventRecordID from "_c1"
+                                        3. Extracting EventRecordID from "_c1"
 
 ss = locate('rn=', CHN_DATA._c1, 1)
 ee = locate('cid=', CHN_DATA._c1, 1)
