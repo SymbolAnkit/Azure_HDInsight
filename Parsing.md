@@ -1,4 +1,4 @@
-    1. Importing Libraries
+                             1. Importing Libraries
 
 import pandas as pd
 import pandas as pd
@@ -6,7 +6,7 @@ import pandas as pd
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
-    2. Importing Data
+                                2. Importing Data
 
 CHN_DATA = spark.read.csv("wasb:///CHN_ARC_LOG1.csv")
 CHN_DATA = spark.read.csv("wasb:///CHN_ARC_LOG1.csv")
