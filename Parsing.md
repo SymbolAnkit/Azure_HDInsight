@@ -100,7 +100,7 @@ CHN_DATA= CHN_DATA.na.drop(subset=["_c3"])
 
 CHN_DATA.count()
 1237528
-                                                  2. Extracting datetime from "_c2"
+                                                  #2. Extracting datetime from "_c2"
 
 cef = substring_index(CHN_DATA._c2, ' ', 1)
 CHN_DATA = CHN_DATA.withColumn("Day", cef)
