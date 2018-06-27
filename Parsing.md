@@ -1,4 +1,4 @@
-                             1. Importing Libraries
+                                                  1. Importing Libraries
 
 import pandas as pd
 import pandas as pd
@@ -6,7 +6,7 @@ import pandas as pd
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
-                                2. Importing Data
+                                                  2. Importing Data
 
 CHN_DATA = spark.read.csv("wasb:///CHN_ARC_LOG1.csv")
 CHN_DATA = spark.read.csv("wasb:///CHN_ARC_LOG1.csv")
@@ -93,8 +93,8 @@ Mar 06 2018 05:28:45: %ASA-4-106023: Deny tcp ...	0x0]	NaN	NaN	NaN	NaN	NaN	NaN	N
 %ASA-6-302016: Teardown UDP connection 1094917...	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
 2500 rows × 11 columns
 
-3. Extracting and Structuring Features
-1. Dropping Rows with No EventID("_c3")
+                                                  3. Extracting and Structuring Features
+                                                  1. Dropping Rows with No EventID("_c3")
 
 CHN_DATA= CHN_DATA.na.drop(subset=["_c3"])
 
@@ -176,7 +176,7 @@ CHN_DATA.show(5)
 |%NICWIN-4-Securit...|rn=879050040 cid=...|5158|Microsoft-Windows...|Audit Success|Filtering Platfor...|The Windows Filte...|Tue|2018|00:00:33|  Mar|  06|  1| 14|  4|  10|   879050040 |
 +--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+
 only showing top 5 rows
-4. Extracting ThreadID from "_c1"
+                                                  4. Extracting ThreadID from "_c1"
 
 ThreadID
 ss = locate('cid=', CHN_DATA._c1, 1)
@@ -225,7 +225,7 @@ CHN_DATA.show(5)
 only showing top 5 rows
 
 CHN_DATA = CHN_DATA.drop("_c0","_c1")
-5. Extracting ProcessID from "_c10"
+                                                  5. Extracting ProcessID from "_c10"
 
 CHN_DATA = CHN_DATA.withColumn("_c10", lower(col("_c10")));
 
@@ -256,7 +256,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06| 87|103| 98|   5|   879050037 |     76 |                 4|      4  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+
 only showing top 2 rows
-6. Extracting ApplicationName from "_c10"
+                                                  6. Extracting ApplicationName from "_c10"
 
 ApplicationName
 ss = locate('application name:', CHN_DATA._c10, 1)
@@ -285,7 +285,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|103|129|120|   9|   879050037 |     76 |                 4|      4  |       system  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+
 only showing top 2 rows
-7. Extracting Direction from "_c10"
+                                                  7. Extracting Direction from "_c10"
 
 Direction
 ss = locate('direction:', CHN_DATA._c10, 1)
@@ -314,7 +314,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|151|172|161|  11|   879050037 |     76 |                 4|      4  |       system  |  inbound  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+
 only showing top 2 rows
-8. Extracting SourceAddress from "_c10"
+                                                  8. Extracting SourceAddress from "_c10"
 
 SourceAddress
 ss = locate('source address:', CHN_DATA._c10, 1)
@@ -343,7 +343,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|172|205|187|  18|   879050037 |     76 |                 4|      4  |       system  |  inbound  |  10.117.192.255  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+------------------+
 only showing top 2 rows
-9. Extracting SourcePort from "_c10"
+                                                  9. Extracting SourcePort from "_c10"
 
 SourcePort
 ss = locate('source port:', CHN_DATA._c10, 1)
@@ -372,7 +372,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|205|224|217|   7|   879050037 |     76 |                 4|      4  |       system  |  inbound  |  10.117.192.255  |     137  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+------------------+----------+
 only showing top 2 rows
-10. Extracting DestinationAddress from "_c10"
+                                                  10. Extracting DestinationAddress from "_c10"
 
 DestinationAddress
 ss = locate('destination address:', CHN_DATA._c10, 1)
@@ -401,7 +401,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|224|261|244|  17|   879050037 |     76 |                 4|      4  |       system  |  inbound  |  10.117.192.255  |     137  |  10.117.192.158  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+------------------+----------+------------------+
 only showing top 2 rows
-11. Extracting DestinationPort from "_c10"
+                                                  11. Extracting DestinationPort from "_c10"
 
 DestinationPort
 ss = locate('destination port:', CHN_DATA._c10, 1)
@@ -430,7 +430,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|261|285|278|   7|   879050037 |     76 |                 4|      4  |       system  |  inbound  |  10.117.192.255  |     137  |  10.117.192.158  |          137  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+------------------+----------+------------------+---------------+
 only showing top 2 rows
-12. Extracting Protocol from "_c10"
+                                                  12. Extracting Protocol from "_c10"
 
 Protocol
 ss = locate('protocol:', CHN_DATA._c10, 1)
@@ -459,7 +459,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|285|300|294|   6|   879050037 |     76 |                 4|      4  |       system  |  inbound  |  10.117.192.255  |     137  |  10.117.192.158  |          137  |    17  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+------------------+----------+------------------+---------------+--------+
 only showing top 2 rows
-13. Extracting Filter_Run_TimeID from "_c10"
+                                                  13. Extracting Filter_Run_TimeID from "_c10"
 
 Filter_Run_TimeID
 ss = locate('filter run-time id:', CHN_DATA._c10, 1)
@@ -488,7 +488,7 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|321|349|340|   9|   879050037 |     76 |                 4|      4  |       system  |  inbound  |  10.117.192.255  |     137  |  10.117.192.158  |          137  |    17  |         520340  |
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+------------------+----------+------------------+---------------+--------+-----------------+
 only showing top 2 rows
-14. Extracting LayerName from "_c10"
+                                                  14. Extracting LayerName from "_c10"
 
 LayerName
 ss = locate('layer name:', CHN_DATA._c10, 1)
@@ -531,11 +531,11 @@ CHN_DATA.show(2)
 |5156|Microsoft-Windows...|Audit Success|Filtering Platfor...|the windows filte...|Tue|2018|00:00:33|  Mar|  06|349|378|360|  18|   879050037 |     76 |                 4|      4  |       system  |  inbound  |  10.117.192.255  |     137  |  10.117.192.158  |          137  |    17  |         520340  |  receive/accept  |              44|
 +----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+---------+---------------+-----------+------------------+----------+------------------+---------------+--------+-----------------+------------------+----------------+
 only showing top 2 rows
-16. Dropping Unnecessary Columns
+                                                  16. Dropping Unnecessary Columns
 
 CHN_DATA
 CHN_DATA = CHN_DATA.drop("_c10","ss","ee","ssn","Diff")
-17. Renaming Features
+                                                  17. Renaming Features
 
 CHN_DATA = CHN_DATA.withColumnRenamed("_c3", "EventID")
 CHN_DATA = CHN_DATA.withColumnRenamed("_c3", "EventID")
@@ -568,7 +568,7 @@ root
  |-- Filter_Run_TimeID: string (nullable = true)
  |-- LayerName: string (nullable = true)
  |-- Layer_Run_TimeID: string (nullable = true)
-18. Writing Processed Data as CSV file in Blob Storage
+                                                  18. Writing Processed Data as CSV file in Blob Storage
 
 CHN_DATA.coalesce(1).write.csv("wasb:///CHN_DATA.csv" , header = True , mode="append")
 CHN_DATA.coalesce(1).write.csv("wasb:///CHN_DATA.csv" , header = True , mode="append")
@@ -586,7 +586,7 @@ CHN_DATA1.show(5)
 |   5145|Microsoft-Windows...|Audit Success|Detailed File Share|Tue|2018|00:00:47|  Mar|  06|   879050394 |    572 |               548|         |object was checke...| share object was...|  10.117.133.28  |          |                  |               |        |                 |         |a network share o...|
 +-------+--------------------+-------------+-------------------+---+----+--------+-----+----+-------------+--------+------------------+---------+--------------------+--------------------+-----------------+----------+------------------+---------------+--------+-----------------+---------+--------------------+
 only showing top 5 rows
-Filtering on eventID
+                                                  Filtering on eventID
 
 CHN_DATA.where(col("EventID").isin({"5156", "4624", "4674", "4634", "4672", "4662", "4656", "4776", "4768", "5145", "4648" , "7036", "7045", "4769", "4689", "4688", "5152", "4625", "5447", "5061", "4793", "4771", "5158", "5140", "4670", "4673", "4933", "4932", "5159", "4658", "5157"}))
 df_otherEventIDs = CHN_DATA.where(col("EventID").isin({"5156", "4624", "4674", "4634", "4672", "4662", "4656", "4776", "4768", "5145", "4648" , "7036", "7045", "4769", "4689", "4688", "5152", "4625", "5447", "5061", "4793", "4771", "5158", "5140", "4670", "4673", "4933", "4932", "5159", "4658", "5157"}))
@@ -608,7 +608,7 @@ SX.show(5)
 |EventID|ProviderName|EventType|Category|Day|Year|Time|Month|Date|EventRecordID|ThreadID|ExecutionProcessID|ProcessID|ApplicationName|Direction|SourceAddress|SourcePort|DestinationAddress|DestinationPort|Protocol|Filter_Run_TimeID|LayerName|Layer_Run_TimeID|
 +-------+------------+---------+--------+---+----+----+-----+----+-------------+--------+------------------+---------+---------------+---------+-------------+----------+------------------+---------------+--------+-----------------+---------+----------------+
 +-------+------------+---------+--------+---+----+----+-----+----+-------------+--------+------------------+---------+---------------+---------+-------------+----------+------------------+---------------+--------+-----------------+---------+----------------+
-start traffic data work
+                                                  start traffic data work
 
 df_TRAFFICEventID
 df_TRAFFICEventID.createOrReplaceTempView("pp1")
