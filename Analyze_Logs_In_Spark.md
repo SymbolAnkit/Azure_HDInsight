@@ -1,19 +1,23 @@
    # Analyze logs in Spark using a custom library
 
-This notebook demonstrates how to analyze log data using a custom library with Spark on HDInsight. The custom library we use is a Python library called iislogparser.py. This library is already included on the Spark cluster at /HdiSamples/HdiSamples/WebsiteLogSampleData/iislogparser.py.
+This notebook demonstrates how to analyze log data using a custom library with Spark on HDInsight. The custom library we use is a Python library called iislogparser.py. 
+*This library is already included on the Spark cluster at /HdiSamples/HdiSamples/WebsiteLogSampleData/iislogparser.py.
 
-Notebook setup
-When using PySpark kernel notebooks on HDInsight, there is no need to create a SparkContext or a SparkSession; a SparkSession which has the SparkContext is created for you automatically when you run the first code cell, and you'll be able to see the progress printed. The contexts are created with the following variable names:
+   #### Notebook setup
 
-SparkSession (spark)
-To run the cells below, place the cursor in the cell and then press SHIFT + ENTER.
+When using __PySpark__ kernel notebooks on HDInsight, there is no need to create a __SparkContext or a SparkSession__; a SparkSession which has the SparkContext is created for you automatically when you run the first code cell, and you'll be able to see the progress printed. The contexts are created with the following variable names:
 
-Save raw data as an RDD
+__SparkSession (spark)__
+To run the cells below, place the cursor in the cell and then press **SHIFT + ENTER**.
+
+   ##### Save raw data as an RDD
 Start with importing some types that are going to be used later in this sample.
 
 from pyspark.sql import Row
+
 from pyspark.sql.types import *
-Create an RDD using the sample log data already available on the cluster. You can access the data in the default storage account associated with the cluster at \HdiSamples\HdiSamples\WebsiteLogSampleData\SampleLog\909f2b.log.
+
+Create an **RDD** using the sample log data already available on the cluster. You can access the data in the default storage account associated with the cluster at \HdiSamples\HdiSamples\WebsiteLogSampleData\SampleLog\909f2b.log.
 
 logs = spark.sparkContext.textFile('wasb:///HdiSamples/HdiSamples/WebsiteLogSampleData/SampleLog/909f2b.log')
 Retrieve a sample log set to verify that the previous step completed successfully.
