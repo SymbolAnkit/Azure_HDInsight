@@ -1,4 +1,4 @@
-Working with data stored in WASB
+  # Working with data stored in WASB
 Azure Storage Blob (WASB) is used as the storage account associated with an HDInsight cluster. An HDInsight cluster can have a default storage and additional storage. The URL to access the cluster storage is:
 
 wasb[s]://<container_name>@<storage_account_name>.blob.core.windows.net/<path>
