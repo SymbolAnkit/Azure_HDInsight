@@ -1,23 +1,25 @@
-Basics of Spark on HDInsight
+   # Basics of Spark on HDInsight
+
 Apache Spark is an open-source parallel processing framework that supports in-memory processing to boost the performance of big-data analytic applications. When you provision a Spark cluster in HDInsight, you provision Azure compute resources with Spark installed and configured. The data to be processed is stored in Azure Blob storage (WASB).
 
-Spark on HDInsight
+   # Spark on HDInsight
 
 Now that you have created a Spark cluster, let us understand some basics of working with Spark on HDInsight. For detailed discussion on working with Spark, see Spark Programming Guide.
 
-Notebook setup
+__Notebook setup__
 When using PySpark kernel notebooks on HDInsight, there is no need to create a SparkContext or a SparkSession; a SparkSession which has the SparkContext is created for you automatically when you run the first code cell, and you'll be able to see the progress printed. The contexts are created with the following variable names:
 
-SparkSession (spark)
-To run the cells below, place the cursor in the cell and then press SHIFT + ENTER.
+   ## SparkSession (spark)
+To run the cells below, place the cursor in the cell and then press __SHIFT + ENTER__.
 
-What is an RDD?
+   ## What is an RDD?
+
 Big Data applications rely on iterative, distributed computing for faster processing of large data sets. To distribute data processing over multiple jobs, the data is typically reused or shared across jobs. To share data between existing distributed computing systems you need to store data in some intermediate stable distributed store such as HDFS. This makes the overall computations of jobs slower.
 
 Resilient Distributed Datasets or RDDs address this by enabling fault-tolerant, distributed, in-memory computations.
 
-How do I make an RDD?
-RDDs can be created from stable storage or by transforming other RDDs. Run the cells below to create RDDs from the sample data files available in the storage container associated with your Spark cluster. One such sample data file is available on the cluster at wasb:///example/data/fruits.txt.
+   ## How do I make an RDD?
+__RDDs__ can be created from stable storage or by transforming other RDDs. Run the cells below to create RDDs from the sample data files available in the storage container associated with your Spark cluster. One such sample data file is available on the cluster at ** wasb:///example/data/fruits.txt **.
 
 fruits = spark.sparkContext.textFile('wasb:///example/data/fruits.txt')
 yellowThings = spark.sparkContext.textFile('wasb:///example/data/yellowthings.txt')
