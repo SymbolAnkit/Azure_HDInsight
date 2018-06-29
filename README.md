@@ -1,15 +1,15 @@
-# Azure HDInsight
+   # Azure HDInsight
 
-* Features available with the new kernels *
+* Features available with the new kernels
 Apache Spark cluster on HDInsight (Linux) includes Jupyter notebooks that you can use to test your applications.
 By default Jupyter notebook comes with a Python2 kernel.
 A kernel is a program that runs and interprets your code.
 HDInsight Spark clusters provide four additional kernels that you can use with the Jupyter notebook.
 
 These are:
-PySpark - for applications written in Python. PySpark kernel exposes the Spark programming model to Python.
-PySpark3 - for applications written in Python3. PySpark3 kernel exposes the Spark programming model to Python3.
-Spark - for applications written in Scala.
+* PySpark - for applications written in Python. PySpark kernel exposes the Spark programming model to Python.
+* PySpark3 - for applications written in Python3. PySpark3 kernel exposes the Spark programming model to Python3.
+* Spark - for applications written in Scala.
 
 SparkR - for applications written in R.
 How do I use the new kernels?
@@ -17,11 +17,12 @@ Create a notebook with the new kernels. Click New, and then click PySpark, PySpa
 Create notebooks with new kernels
 This should open a new notebook with the kernel you selected.
 
-Notebook setup
+   ## Notebook setup
+
 When using PySpark kernel notebooks on HDInsight, there is no need to create a SparkContext or a SparkSession; a SparkSession which has the SparkContext is created for you automatically when you run the first code cell, and you'll be able to see the progress printed. The contexts are created with the following variable names:
 
-SparkSession (spark)
-To run the cells below, place the cursor in the cell and then press SHIFT + ENTER.
+   ## SparkSession (spark)
+To run the cells below, place the cursor in the cell and then press __SHIFT + ENTER__.
 
 
 Everytime you run a cell, your web browser window title will show a (Busy) status along with the notebook title. You will also see a solid circle next to the PySpark text in the top-right corner. After the job completes, this will change to a hollow circle.
