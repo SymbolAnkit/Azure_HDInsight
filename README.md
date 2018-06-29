@@ -26,9 +26,9 @@ To run the cells below, place the cursor in the cell and then press __SHIFT + EN
 
 Everytime you run a cell, your web browser window title will show a (Busy) status along with the notebook title. You will also see a solid circle next to the PySpark text in the top-right corner. After the job completes, this will change to a hollow circle.
 
-   ####Status of a Jupyter notebook job
+   #### Status of a Jupyter notebook job
 
-   ######PySpark magics
+   ###### PySpark magics
 The PySpark kernel provides some predefined “magics”, which are special commands that you can call with %% (e.g. %%MAGIC ). The magic command must be the first word in a code cell and allow for multiple lines of content. You can’t put comments before a cell magic.
 
 For more information on magics, see here.
