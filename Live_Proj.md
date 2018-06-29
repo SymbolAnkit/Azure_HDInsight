@@ -76,79 +76,80 @@
                                         
   ###  Extracting Column1 from "_c1"
 
-ss = locate('rn=', DATA._c1, 1)
-ee = locate('cid=', DATA._c1, 1)
+      ss = locate('rn=', DATA._c1, 1)
+      ee = locate('cid=', DATA._c1, 1)
 
-DATA = DATA.withColumn('ss',ss )
-DATA = DATA.withColumn('ee',ee )
+      DATA = DATA.withColumn('ss',ss )
+      DATA = DATA.withColumn('ee',ee )
 
-ssn = DATA.ss + 3
+      ssn = DATA.ss + 3
 
-DATA = DATA.withColumn("ssn" , ssn)
+      DATA = DATA.withColumn("ssn" , ssn)
 
-diff = DATA.ee - DATA.ssn
+      diff = DATA.ee - DATA.ssn
 
-DATA = DATA.withColumn("Diff" , diff)
+      DATA = DATA.withColumn("Diff" , diff)
 
-DATA = DATA.withColumn('Column1', DATA['_c1'].substr(DATA.ssn, DATA.Diff))
+      DATA = DATA.withColumn('Column1', DATA['_c1'].substr(DATA.ssn, DATA.Diff))
 
-DATA.show(5)
+      DATA.show(5)
 
-only showing top 5 rows
+*only showing top 5 rows*
                                                   
+
   ###  Extracting Column2 from "_c1"
 
-ss = locate('cid=', DATA._c1, 1)
-ee = locate('eid=', DATA._c1, 1)
+      ss = locate('cid=', DATA._c1, 1)
+      ee = locate('eid=', DATA._c1, 1)
 
-DATA = DATA.withColumn('ss',ss )
-DATA = DATA.withColumn('ee',ee )
+      DATA = DATA.withColumn('ss',ss )
+      DATA = DATA.withColumn('ee',ee )
 
-ssn = DATA.ss + 4
+      ssn = DATA.ss + 4
 
-DATA = DATA.withColumn("ssn" , ssn)
+      DATA = DATA.withColumn("ssn" , ssn)
 
-diff = DATA.ee - DATA.ssn
+      diff = DATA.ee - DATA.ssn
 
-DATA = DATA.withColumn("Diff" , diff)
+      DATA = DATA.withColumn("Diff" , diff)
 
-DATA = DATA.withColumn('Column2', DATA['_c1'].substr(DATA.ssn, DATA.Diff))
+      DATA = DATA.withColumn('Column2', DATA['_c1'].substr(DATA.ssn, DATA.Diff))
 
-CHN_DATA.show(5)
+      CHN_DATA.show(5)
 
-only showing top 5 rows
+*only showing top 5 rows*
 
-cef = substring_index(CHN_DATA._c1, 'eid=', -1)
+      cef = substring_index(CHN_DATA._c1, 'eid=', -1)
 
-CHN_DATA = CHN_DATA.withColumn("abc", cef)
+      CHN_DATA = CHN_DATA.withColumn("abc", cef)
 
 ####    Drop the column
 
-DATA = DATA.drop("_c0","_c1")
+      DATA = DATA.drop("_c0","_c1")
 
  ###   Converting all strings to lowercase
 
-DATA = DATA.withColumn("col_name", lower(col("col_name")));
+      DATA = DATA.withColumn("col_name", lower(col("col_name")));
 
   ###  Extracting last word from column
     
-cef = substring_index(DATA._c10, 'layer run-time id:', -1)
+      cef = substring_index(DATA._c10, 'layer run-time id:', -1)
 
-DATA = DATA.withColumn("Layer_Run_TimeID", cef)
+      DATA = DATA.withColumn("Layer_Run_TimeID", cef)
 
   ###  Rename a column
 
-DATA = DATA.withColumnRenamed("_c3", "New_Column_Name")
+      DATA = DATA.withColumnRenamed("_c3", "New_Column_Name")
 
   ###  Print Column Name 
 
-DATA.printSchema()
+      DATA.printSchema()
     
    ###    Subset/Filter Data using conditions
     
-DATA = DATA.where(col("EventID").isin({"5145"}))
+      DATA = DATA.where(col("EventID").isin({"5145"}))
 
   ##  Write Processed Data as CSV file in Blob Storage
 
-DATA.coalesce(1).write.csv("wasb:///DATA.csv" , header = True , mode="append")
+      DATA.coalesce(1).write.csv("wasb:///DATA.csv" , header = True , mode="append")
 
