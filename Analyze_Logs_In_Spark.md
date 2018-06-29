@@ -1,4 +1,5 @@
-Analyze logs in Spark using a custom library
+   # Analyze logs in Spark using a custom library
+
 This notebook demonstrates how to analyze log data using a custom library with Spark on HDInsight. The custom library we use is a Python library called iislogparser.py. This library is already included on the Spark cluster at /HdiSamples/HdiSamples/WebsiteLogSampleData/iislogparser.py.
 
 Notebook setup
