@@ -1,7 +1,9 @@
    # Analyze logs in Spark using a custom library
 
 This notebook demonstrates how to analyze log data using a custom library with Spark on HDInsight. The custom library we use is a Python library called iislogparser.py. 
-*This library is already included on the Spark cluster at /HdiSamples/HdiSamples/WebsiteLogSampleData/iislogparser.py.
+*This library is already included on the Spark cluster at 
+
+/HdiSamples/HdiSamples/WebsiteLogSampleData/iislogparser.py*.
 
    #### Notebook setup
 
@@ -17,14 +19,17 @@ from pyspark.sql import Row
 
 from pyspark.sql.types import *
 
-Create an **RDD** using the sample log data already available on the cluster. You can access the data in the default storage account associated with the cluster at \HdiSamples\HdiSamples\WebsiteLogSampleData\SampleLog\909f2b.log.
+Create an **RDD** using the sample log data already available on the cluster. we can access the data in the default storage account associated with the cluster at \HdiSamples\HdiSamples\WebsiteLogSampleData\SampleLog\909f2b.log.
 
 logs = spark.sparkContext.textFile('wasb:///HdiSamples/HdiSamples/WebsiteLogSampleData/SampleLog/909f2b.log')
+
 Retrieve a sample log set to verify that the previous step completed successfully.
 
 logs.take(5)
-Analyze log data using a custom Python library
-In the output above, the first couple lines include the header information and each remaining line matches the schema described in that header. Parsing such logs could be complicated. So, we use a custom Python library (iislogparser.py) that makes parsing such logs much easier.
+
+   ### Analyze log data using a custom Python library
+
+In the output above, the first couple lines include the header information and each remaining line matches the schema described in that header. Parsing such logs could be complicated. So, we use a custom Python library __(iislogparser.py)__ that makes parsing such logs much easier.
 
 However, this is not a Python library that we can install with Pip, and it is not in the PYTHONPATH, we cannot use it by using an import statement like import iislogparser. To use this library, we must distribute it to all the worker nodes.
 
