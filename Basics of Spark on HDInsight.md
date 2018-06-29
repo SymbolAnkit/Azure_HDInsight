@@ -19,99 +19,120 @@ Big Data applications rely on iterative, distributed computing for faster proces
 Resilient Distributed Datasets or RDDs address this by enabling fault-tolerant, distributed, in-memory computations.
 
    ## How do I make an RDD?
-__RDDs__ can be created from stable storage or by transforming other RDDs. Run the cells below to create RDDs from the sample data files available in the storage container associated with your Spark cluster. One such sample data file is available on the cluster at ** wasb:///example/data/fruits.txt **.
+__RDDs__ can be created from stable storage or by transforming other RDDs. Run the cells below to create RDDs from the sample data files available in the storage container associated with your Spark cluster. One such sample data file is available on the cluster at __wasb:///example/data/fruits.txt__.
 
 fruits = spark.sparkContext.textFile('wasb:///example/data/fruits.txt')
 yellowThings = spark.sparkContext.textFile('wasb:///example/data/yellowthings.txt')
 For more examples on how to create RDDs see the following notebooks available with your Spark cluster:
 
-Read and write data from Azure Storage Blobs (WASB)
-Read and write data from Hive tables
-What are RDD operations?
-RDDs support two types of operations: transformations and actions.
+##### Read and write data from Azure Storage Blobs (WASB)
+##### Read and write data from Hive tables
+##### What are RDD operations?
+##### RDDs support two types of operations: transformations and actions.
 
 Transformations create a new dataset from an existing one. Transformations are lazy, meaning that no transformation is executed until you execute an action.
 Actions return a value to the driver program after running a computation on the dataset.
-RDD transformations
+
+__RDD transformations__
 Following are examples of some of the common transformations available. For a detailed list, see RDD Transformations
 
 Run some transformations below to understand this better. Place the cursor in the cell and press SHIFT + ENTER.
 
-# map
+###### Map
 fruitsReversed = fruits.map(lambda fruit: fruit[::-1])
-# filter
+
+###### Filter
 shortFruits = fruits.filter(lambda fruit: len(fruit) <= 5)
-# flatMap
+
+###### FlatMap
 characters = fruits.flatMap(lambda fruit: list(fruit))
-# union
+
+###### Union
 fruitsAndYellowThings = fruits.union(yellowThings)
-# intersection
+
+######Intersection
 yellowFruits = fruits.intersection(yellowThings)
-# distinct
+
+###### Iistinct
 distinctFruitsAndYellowThings = fruitsAndYellowThings.distinct()
 distinctFruitsAndYellowThings
-# groupByKey
+
+###### GroupByKey
 yellowThingsByFirstLetter = yellowThings.map(lambda thing: (thing[0], thing)).groupByKey()
-# reduceByKey
+
+###### ReduceByKey
 numFruitsByLength = fruits.map(lambda fruit: (len(fruit), 1)).reduceByKey(lambda x, y: x + y)
-RDD actions
+
+__RDD actions__
 Following are examples of some of the common actions available. For a detailed list, see RDD Actions.
 
-Run some transformations below to understand this better. Place the cursor in the cell and press SHIFT + ENTER.
+Run some transformations below to understand this better. Place the cursor in the cell and press __SHIFT + ENTER__.
 
-# collect
+###### Collect
 fruitsArray = fruits.collect()
 yellowThingsArray = yellowThings.collect()
 fruitsArray
-# count
+
+###### Count
 numFruits = fruits.count()
 numFruits
-# take
+
+###### Take
 first3Fruits = fruits.take(3)
 first3Fruits
-# reduce
+
+###### Reduce
 letterSet = fruits.map(lambda fruit: set(fruit)).reduce(lambda x, y: x.union(y))
 letterSet
-IMPORTANT: Another important RDD action is saving the output to a file. See the Read and write data from Azure Storage Blobs (WASB) notebook for more information.
 
-What is a dataframe?
+__IMPORTANT:__ Another important RDD action is saving the output to a file. See the Read and write data from Azure Storage Blobs (WASB) notebook for more information.
+
+   ###### What is a dataframe?
 The pyspark.sql library provides an alternative API for manipulating structured datasets, known as "dataframes". (Dataframes are not a Spark-specific concept but pyspark provides its own dedicated dataframe library.) These are different from RDDs, but you can convert an RDD into a dataframe or vice-versa, if required.
 
 See Spark SQL and DataFrame Guide for more information.
 
-How do I make a dataframe?
+   ###### How do I make a dataframe?
 You can load a dataframe directly from an input data source. See the following notebooks included with your Spark cluster for more information.
 
-Read and write data from Azure Storage Blobs (WASB)
-Read and write data from Hive tables
-You can also create a dataframe from a CSV file as shown below.
+__Read and write data from Azure Storage Blobs (WASB)__
+__Read and write data from Hive tables__
+__You can also create a dataframe from a CSV file as shown below.__
 
 df = spark.read.csv('wasb:///HdiSamples/HdiSamples/SensorSampleData/building/building.csv', header=True, inferSchema=True)
-Dataframe operations
+
+   ###### Dataframe operations
+
 Run the cells below to see examples of some of the the operations that you can perform on dataframes.
 
-# show the content of the dataframe
+###### show the content of the dataframe
 df.show()
-# Print the dataframe schema in a tree format
-df.printSchema()
-# Create an RDD from the dataframe
-dfrdd = df.rdd
-dfrdd.take(3)
-dfrdd = df.rdd
-dfrdd.take(3)
-# Retrieve a given number of rows from the dataframe
-df.limit(3).show()
-df.limit(3).show()
-# Retrieve specific columns from the dataframe
-df.select('BuildingID', 'Country').limit(3).show()
-# Use GroupBy clause with dataframe 
-df.groupBy('HVACProduct').count().select('HVACProduct', 'count').show()
-IMPORTANT: Many of the methods available on normal RDDs are also available on dataframes. For example, distinct, count, collect, filter, map, and take are all methods on dataframes as well as on RDDs.
 
-Spark SQL and dataframes
+###### Print the dataframe schema in a tree format
+df.printSchema()
+
+###### Create an RDD from the dataframe
+dfrdd = df.rdd
+dfrdd.take(3)
+dfrdd = df.rdd
+dfrdd.take(3)
+
+###### Retrieve a given number of rows from the dataframe
+df.limit(3).show()
+df.limit(3).show()
+
+###### Retrieve specific columns from the dataframe
+df.select('BuildingID', 'Country').limit(3).show()
+
+###### Use GroupBy clause with dataframe 
+df.groupBy('HVACProduct').count().select('HVACProduct', 'count').show()
+
+__IMPORTANT:__ Many of the methods available on normal RDDs are also available on dataframes. For example, distinct, count, collect, filter, map, and take are all methods on dataframes as well as on RDDs.
+
+__Spark SQL and dataframes__
 You can also run SQL queries over dataframes once you register them as temporary tables within the SparkSession. Run the snippet below to see an example.
 
-# Register the dataframe as a temporary table called HVAC
+   ###### Register the dataframe as a temporary table called HVAC
 df.registerTempTable('HVAC')
 %%sql
 SELECT * FROM HVAC WHERE BuildingAge >= 10
