@@ -1,4 +1,4 @@
-Working with Hive tables using Spark
+  # Working with Hive tables using Spark
 You can use the Spark execution engine to run Hive queries. In this notebook, you look at examples on how to read data from a Hive table and how to write data back into a Hive table.
 
 Notebook setup
