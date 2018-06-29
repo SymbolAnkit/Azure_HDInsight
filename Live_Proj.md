@@ -1,4 +1,4 @@
-    Importing Required Libraries
+   # Importing Required Libraries
 
 import pandas as pd
 import pandas as pd
@@ -6,21 +6,21 @@ import pandas as pd
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
-     Importing Data
+   #  Importing Data
 
 DATA = spark.read.csv("wasb:///DATA.csv")
 
-    Number of Rows
+  ###  Number of Rows
 
 DATA.count()
 
-    Type of Data
+  ###  Type of Data
 
 type(DATA)
 
 <class 'pyspark.sql.dataframe.DataFrame'>
 
-    Transform to sql table
+  ###  Transform to sql table
 
 DATA.createOrReplaceTempView("pp")
 
@@ -28,13 +28,13 @@ DATA.createOrReplaceTempView("pp")
 
 select * from pp
 
-    Drop NA Values
+  ###  Drop NA Values
 
 DATA= DATA.na.drop(subset=["_c3"])
 
 DATA.count()
 
-    Extracting datetime from "_c2"
+  ###  Extracting datetime from "_c2"
 
 cef = substring_index(DATA._c2, ' ', 1)
 
@@ -74,7 +74,7 @@ DATA.show(5)
 DATA = DATA.drop("_c5", "_c7", "_c9", "_c2")
 DATA = DATA.drop("_c5", "_c7", "_c9", "_c2")
                                         
-    Extracting Column1 from "_c1"
+  ###  Extracting Column1 from "_c1"
 
 ss = locate('rn=', DATA._c1, 1)
 ee = locate('cid=', DATA._c1, 1)
@@ -93,12 +93,10 @@ DATA = DATA.withColumn("Diff" , diff)
 DATA = DATA.withColumn('Column1', DATA['_c1'].substr(DATA.ssn, DATA.Diff))
 
 DATA.show(5)
-+--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+
 
-+--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+
 only showing top 5 rows
                                                   
-    Extracting Column2 from "_c1"
+  ###  Extracting Column2 from "_c1"
 
 ss = locate('cid=', DATA._c1, 1)
 ee = locate('eid=', DATA._c1, 1)
@@ -117,49 +115,40 @@ DATA = DATA.withColumn("Diff" , diff)
 DATA = DATA.withColumn('Column2', DATA['_c1'].substr(DATA.ssn, DATA.Diff))
 
 CHN_DATA.show(5)
-+--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+
-|                 _c0|                 _c1| _c3|                 _c4|          _c6|                 _c8|                _c10|Day|Year|    
-+--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+
+
 only showing top 5 rows
 
 cef = substring_index(CHN_DATA._c1, 'eid=', -1)
 
 CHN_DATA = CHN_DATA.withColumn("abc", cef)
 
-DATA.show(5)
-+--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+
-
-
-+--------------------+--------------------+----+--------------------+-------------+--------------------+--------------------+---+----+--------+-----+----+---+---+---+----+-------------+--------+------------------+
-only showing top 5 rows
-
-    Drop the column
+####    Drop the column
 
 DATA = DATA.drop("_c0","_c1")
 
-    Converting all strings to lowercase
+ ###   Converting all strings to lowercase
 
 DATA = DATA.withColumn("col_name", lower(col("col_name")));
 
-    Extracting last word from column
+  ###  Extracting last word from column
     
 cef = substring_index(DATA._c10, 'layer run-time id:', -1)
 
 DATA = DATA.withColumn("Layer_Run_TimeID", cef)
 
-    Rename a column
+  ###  Rename a column
 
 DATA = DATA.withColumnRenamed("_c3", "New_Column_Name")
 
-    Print Column Name 
+  ###  Print Column Name 
 
 DATA.printSchema()
     
-       Subset/Filter Data using conditions
+   ###    Subset/Filter Data using conditions
     
 DATA = DATA.where(col("EventID").isin({"5145"}))
 
-    Write Processed Data as CSV file in Blob Storage
+  ##  Write Processed Data as CSV file in Blob Storage
 
 DATA.coalesce(1).write.csv("wasb:///DATA.csv" , header = True , mode="append")
 
