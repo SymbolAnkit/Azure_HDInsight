@@ -4,10 +4,10 @@ Apache Spark is an open-source parallel processing framework that supports in-me
 
    # Spark on HDInsight
 
-Now that you have created a Spark cluster, let us understand some basics of working with Spark on HDInsight. For detailed discussion on working with Spark, see Spark Programming Guide.
+Now that we have created a Spark cluster, let us understand some basics of working with Spark on HDInsight. For detailed discussion on working with Spark, see Spark Programming Guide.
 
 __Notebook setup__
-When using PySpark kernel notebooks on HDInsight, there is no need to create a SparkContext or a SparkSession; a SparkSession which has the SparkContext is created for you automatically when you run the first code cell, and you'll be able to see the progress printed. The contexts are created with the following variable names:
+When using PySpark kernel notebooks on HDInsight, there is no need to create a SparkContext or a SparkSession; a SparkSession which has the SparkContext is created for us automatically when we run the first code cell, and we'll be able to see the progress printed. The contexts are created with the following variable names:
 
    ## SparkSession (spark)
 To run the cells below, place the cursor in the cell and then press __SHIFT + ENTER__.
@@ -36,7 +36,7 @@ Actions return a value to the driver program after running a computation on the 
 __RDD transformations__
 Following are examples of some of the common transformations available. For a detailed list, see RDD Transformations
 
-Run some transformations below to understand this better. Place the cursor in the cell and press SHIFT + ENTER.
+Run some transformations below to understand this better. Place the cursor in the cell and press **SHIFT + ENTER**.
 
 ###### Map
 fruitsReversed = fruits.map(lambda fruit: fruit[::-1])
@@ -88,11 +88,11 @@ letterSet
 __IMPORTANT:__ Another important RDD action is saving the output to a file. See the Read and write data from Azure Storage Blobs (WASB) notebook for more information.
 
    ###### What is a dataframe?
-The pyspark.sql library provides an alternative API for manipulating structured datasets, known as "dataframes". (Dataframes are not a Spark-specific concept but pyspark provides its own dedicated dataframe library.) These are different from RDDs, but you can convert an RDD into a dataframe or vice-versa, if required.
+The pyspark.sql library provides an alternative API for manipulating structured datasets, known as "dataframes". (Dataframes are not a Spark-specific concept but pyspark provides its own dedicated dataframe library.) These are different from RDDs, but we can **convert an RDD into a dataframe or vice-versa, if required**.
 
 See Spark SQL and DataFrame Guide for more information.
 
-   ###### How do I make a dataframe?
+   ###### How do we make a dataframe?
 You can load a dataframe directly from an input data source. See the following notebooks included with your Spark cluster for more information.
 
 __Read and write data from Azure Storage Blobs (WASB)__
@@ -130,7 +130,7 @@ df.groupBy('HVACProduct').count().select('HVACProduct', 'count').show()
 __IMPORTANT:__ Many of the methods available on normal RDDs are also available on dataframes. For example, distinct, count, collect, filter, map, and take are all methods on dataframes as well as on RDDs.
 
 __Spark SQL and dataframes__
-You can also run SQL queries over dataframes once you register them as temporary tables within the SparkSession. Run the snippet below to see an example.
+we can also run SQL queries over dataframes once you register them as temporary tables within the SparkSession. Run the snippet below to see an example.
 
    ###### Register the dataframe as a temporary table called HVAC
 df.registerTempTable('HVAC')
