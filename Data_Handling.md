@@ -99,6 +99,6 @@ If you have an __RDD__ and want to save it as a parquet file or JSON file, you'l
 
 Save an RDD of key-value pairs as a sequence file
 
-#### If your RDD isn't made up of key-value pairs then you'll get a runtime error
+#### If our RDD isn't made up of key-value pairs then you'll get a runtime error
 
       seqFile.saveAsSequenceFile('wasb:///example/data/people2py.seq')
