@@ -153,3 +153,6 @@
 
       DATA.coalesce(1).write.csv("wasb:///DATA.csv" , header = True , mode="append")
 
+
+
+https://blogs.technet.microsoft.com/uktechnet/2018/06/22/how-to-automate-processing-your-azure-analysis-services-models/
